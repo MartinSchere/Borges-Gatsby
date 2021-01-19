@@ -1,7 +1,4 @@
 import React, { Fragment } from 'react'
-import Helmet from 'react-helmet'
-import { stringify } from 'qs'
-import { serialize } from 'dom-form-serializer'
 
 import './Form.css'
 
@@ -25,10 +22,12 @@ class Form extends React.Component {
     if (this.state.disabled) return
 
     const form = e.target
-    const data = serialize(form)
+    let formData = new FormData(form)
     this.setState({ disabled: true })
-    fetch(form.action + '?' + stringify(data), {
-      method: 'POST'
+    fetch(form.action, {
+      method: 'POST',
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString()
     })
       .then(res => {
         if (res.ok) {
@@ -58,9 +57,9 @@ class Form extends React.Component {
 
     return (
       <Fragment>
-        <Helmet>
+        {/* <Helmet>
           <script src="https://www.google.com/recaptcha/api.js" />
-        </Helmet>
+        </Helmet> */}
         <form
           className="Form"
           name={name}
