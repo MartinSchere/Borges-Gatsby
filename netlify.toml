@@ -5,4 +5,4 @@
   YARN_VERSION = "1.3.2"
   YARN_FLAGS = "--no-ignore-optional"
 [context.production]
-  environment = { NETLIFY_MAP_KEY : "" }
+  environment = { NETLIFY_MAP_KEY = "" }
